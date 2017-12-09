@@ -1,0 +1,16 @@
+ServerName localhost
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+	DocumentRoot /home/www-data/PHP-Scanner-Server
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory /home/www-data/PHP-Scanner-Server/>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Require all granted
+	</Directory>
+	ErrorLog /var/log/apache2/error.log
+	CustomLog /var/log/apache2/access.log combined
+</VirtualHost>
