@@ -1,16 +1,8 @@
 #!/bin/bash
 set -e
 
-#echo "Installing udev rules for scanner"
-#tar -jvxf /home/www-data/PHP-Scanner-Server/scanner-udev-rule-maker.tar.bz2 --directory /tmp/
-#su chmod +x /tmp/scanner-udev-rule-maker
-#su -c /home/www-data/PHP-Scanner-Server/scanner-udev-rule-maker -s /bin/sh
-
-#rm /tmp/scanner-udev-rule-maker
-
 echo "Starting Apache2"
 source /etc/apache2/envvars && exec /usr/sbin/apache2 -DFOREGROUND
-
 
 echo "Running udev rule maker"
 if [ ! -d /etc/udev/rules.d ]; then

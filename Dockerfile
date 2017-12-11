@@ -45,7 +45,7 @@ RUN adduser www-data lp
 RUN ln -s /etc/apache2/sites-available/PHP-Scanner-Server.conf /etc/apache2/sites-enabled/001-PHP-Scanner-Server.conf
 RUN rm /etc/apache2/sites-enabled/000-default.conf
 
-
+#make the directories and get the php scanner server
 RUN mkdir -p /home/www-data/PHP-Scanner-Server/
 RUN git clone git://github.com/roblandry/PHP-Scanner-Server /home/www-data/PHP-Scanner-Server
 RUN mkdir -p /home/www-data/PHP-Scanner-Server/config/parallel
