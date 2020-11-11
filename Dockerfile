@@ -1,6 +1,10 @@
 #roblandry/docker-compose php-scanner-server branch on github
-#Download base image ubuntu 17.10
-FROM ubuntu:17.10
+#Download base image ubuntu 20.04
+FROM ubuntu:20.04
+
+# Fix for tzdata
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=America/New_York
 
 # Update Software repository
 RUN apt-get update
@@ -8,22 +12,46 @@ RUN apt-get update
 # Install nginx, php-fpm and supervisord from ubuntu repository
 RUN apt-get install -y apt-utils
 
+# Mandatory
 RUN apt-get install -y \
-	tesseract-ocr \
 	imagemagick \
 	sane-utils \
+	usbutils \
 	apache2 \
-	php \
-	php-curl \
 	libapache2-mod-php \
-	php-fpdf \
+	coreutils \
+	php5 \
+	php \
+	php5-json \
+	php-json
+
+# Recommended
+RUN apt-get install -y \
+	php5-curl \
+	php-curl \
+	tesseract-ocr \
 	tar \
 	zip \
+	php-fpdf \
 	libpaper-utils \
-	grep \
 	sed \
-	coreutils \
-	usbutils \
+	grep
+
+# Optional
+RUN apt-get install -y \
+	hplip \
+	cups \
+	php5-cli \
+	php-cli \
+	curl \
+	tesseract-ocr-all \
+	tesseract-ocr-* \
+	fortune \
+	cowsay
+
+# Other
+RUN apt-get install -y \
+	nano \
 	git \
 	bzip2 \
 	sudo \
@@ -64,16 +92,16 @@ RUN dpkg -i /tmp/DR-C225_LinuxDriver_1.00-4-x86_64/x86_64/cndrvsane-drc225_1.00-
 #RUN service apache2 restart
 
 #configure Apache
-RUN sed -ri 's/^display_errors\s*=\s*Off/display_errors = On/g' /etc/php/7.1/apache2/php.ini
-RUN sed -ri 's/^display_errors\s*=\s*Off/display_errors = On/g' /etc/php/7.1/cli/php.ini
-RUN sed -ri "s/^error_reporting\s*=.*$//g" /etc/php/7.1/apache2/php.ini
-RUN sed -ri "s/^error_reporting\s*=.*$//g" /etc/php/7.1/cli/php.ini
-RUN echo "error_reporting = ${PHP_ERROR_REPORTING:-'E_ALL'}" >> /etc/php/7.1/apache2/php.ini
-RUN echo "error_reporting = ${PHP_ERROR_REPORTING:-'E_ALL'}" >> /etc/php/7.1/cli/php.ini
-RUN sed -ri 's/^;date.timezone\s*=/date.timezone = \"America\/New_York\"/g' /etc/php/7.1/apache2/php.ini
-RUN sed -ri 's/^;date.timezone\s*=/date.timezone = \"America\/New_York\"/g' /etc/php/7.1/cli/php.ini
-RUN sed -ri 's/^memory_limit\s*=\s*128M/memory_limit = 1024M/g' /etc/php/7.1/apache2/php.ini
-RUN sed -ri 's/^memory_limit\s*=\s*128M/memory_limit = 1024M/g' /etc/php/7.1/cli/php.ini
+RUN sed -ri 's/^display_errors\s*=\s*Off/display_errors = On/g' /etc/php/7.4/apache2/php.ini
+RUN sed -ri 's/^display_errors\s*=\s*Off/display_errors = On/g' /etc/php/7.4/cli/php.ini
+RUN sed -ri "s/^error_reporting\s*=.*$//g" /etc/php/7.4/apache2/php.ini
+RUN sed -ri "s/^error_reporting\s*=.*$//g" /etc/php/7.4/cli/php.ini
+RUN echo "error_reporting = ${PHP_ERROR_REPORTING:-'E_ALL'}" >> /etc/php/7.4/apache2/php.ini
+RUN echo "error_reporting = ${PHP_ERROR_REPORTING:-'E_ALL'}" >> /etc/php/7.4/cli/php.ini
+RUN sed -ri 's/^;date.timezone\s*=/date.timezone = \"America\/New_York\"/g' /etc/php/7.4/apache2/php.ini
+RUN sed -ri 's/^;date.timezone\s*=/date.timezone = \"America\/New_York\"/g' /etc/php/7.4/cli/php.ini
+RUN sed -ri 's/^memory_limit\s*=\s*128M/memory_limit = 1024M/g' /etc/php/7.4/apache2/php.ini
+RUN sed -ri 's/^memory_limit\s*=\s*128M/memory_limit = 1024M/g' /etc/php/7.4/cli/php.ini
 
 #RUN service apache2 restart
 

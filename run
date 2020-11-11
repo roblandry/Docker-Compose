@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e
 
-echo "Starting Apache2"
-source /etc/apache2/envvars && exec /usr/sbin/apache2 -DFOREGROUND
-
 echo "Running udev rule maker"
 if [ ! -d /etc/udev/rules.d ]; then
 	mkdir /etc/udev/rules.d
 fi
 sudo /tmp/scanner-udev-rule-maker
+
+echo "Starting Apache2"
+source /etc/apache2/envvars && exec /usr/sbin/apache2 -DFOREGROUND
 
