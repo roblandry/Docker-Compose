@@ -20,14 +20,14 @@ RUN apt-get install -y \
 	apache2 \
 	libapache2-mod-php \
 	coreutils \
-	php5 \
+	# php5 \
 	php \
-	php5-json \
+	# php5-json \
 	php-json
 
 # Recommended
 RUN apt-get install -y \
-	php5-curl \
+	# php5-curl \
 	php-curl \
 	tesseract-ocr \
 	tar \
