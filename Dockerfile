@@ -41,7 +41,7 @@ RUN apt-get install -y \
 RUN apt-get install -y \
 	hplip \
 	cups \
-	php5-cli \
+	# php5-cli \
 	php-cli \
 	curl \
 	tesseract-ocr-all \
@@ -82,7 +82,6 @@ RUN mkdir -p /home/www-data/PHP-Scanner-Server/scans
 RUN ln -s /home/www-data/PHP-Scanner-Server/ /data
 RUN chown -R www-data:www-data /home/www-data/
 RUN rm -rf /home/www-data/PHP-Scanner-Server/.git # Delete git files, we don't need this stuff
-RUN ls -la /home/www-data/PHP-Scanner-Server/
 
 #GET DR-C225 Drivers
 RUN wget -P /tmp http://files.canon-europe.com/files/soft46679/Software/d15106mux_Linux_v10_DRC225_DRC225W_64bit.zip
